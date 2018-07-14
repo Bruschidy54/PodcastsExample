@@ -13,6 +13,7 @@
 		CDE864A220FA9DC4002CF08C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDE864A120FA9DC4002CF08C /* Assets.xcassets */; };
 		CDE864A520FA9DC4002CF08C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDE864A320FA9DC4002CF08C /* LaunchScreen.storyboard */; };
 		CDE864B020FA9DC4002CF08C /* PodcastsExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE864AF20FA9DC4002CF08C /* PodcastsExampleTests.swift */; };
+		CDE864BB20FA9E4D002CF08C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE864BA20FA9E4D002CF08C /* MainTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		CDE864AB20FA9DC4002CF08C /* PodcastsExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PodcastsExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDE864AF20FA9DC4002CF08C /* PodcastsExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastsExampleTests.swift; sourceTree = "<group>"; };
 		CDE864B120FA9DC4002CF08C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CDE864BA20FA9E4D002CF08C /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 		CDE8649920FA9DC2002CF08C /* PodcastsExample */ = {
 			isa = PBXGroup;
 			children = (
+				CDE864BA20FA9E4D002CF08C /* MainTabBarController.swift */,
 				CDE8649A20FA9DC2002CF08C /* AppDelegate.swift */,
 				CDE8649C20FA9DC2002CF08C /* ViewController.swift */,
 				CDE8649E20FA9DC2002CF08C /* Main.storyboard */,
@@ -199,6 +202,7 @@
 			files = (
 				CDE8649D20FA9DC2002CF08C /* ViewController.swift in Sources */,
 				CDE8649B20FA9DC2002CF08C /* AppDelegate.swift in Sources */,
+				CDE864BB20FA9E4D002CF08C /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
