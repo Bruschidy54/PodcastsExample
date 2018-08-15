@@ -11,6 +11,8 @@ import AVKit
 
 class PlayerDetailsView: UIView {
     
+    // TO DO: Create extension to factor out gesture code
+    
     var episode: Episode! {
         didSet {
             miniTitleLabel.text = episode.title
@@ -24,6 +26,8 @@ class PlayerDetailsView: UIView {
             miniEpisodeImageView.sd_setImage(with: url, completed: nil)
         }
     }
+    
+    var panGesture: UIPanGestureRecognizer!
     
     private let shrunkenTransform = CGAffineTransform(scaleX: 0.7, y: 0.7)
     
@@ -54,11 +58,36 @@ class PlayerDetailsView: UIView {
         currentTimeSlider.value = Float(percentage)
     }
     
+    fileprivate func setupGestures() {
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximize)))
+        
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        miniPlayerView.addGestureRecognizer(panGesture)
+        
+        maximizedStackView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismissalPan)))
+    }
+    
+    @objc func handleDismissalPan(gesture: UIPanGestureRecognizer) {
+        if gesture.state == .changed {
+            let translation = gesture.translation(in: superview)
+            maximizedStackView.transform = CGAffineTransform(translationX: 0, y: translation.y)
+        } else if gesture.state == .ended {
+            let translation = gesture.translation(in: superview)
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.maximizedStackView.transform = .identity
+            })
+            
+            if translation.y > 50 {
+                UIApplication.mainTabBarController()?.minimizePlayerDetails()
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTapMaximize))
-        addGestureRecognizer(tap)
+
+        setupGestures()
         
         observePlayerCurrentTime()
         
@@ -71,9 +100,40 @@ class PlayerDetailsView: UIView {
         }
     }
     
+    fileprivate func handlePanEnded(_ gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: self.superview)
+        let velocity = gesture.velocity(in: self.superview)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.transform = .identity
+            
+            if translation.y < -200 || velocity.y < -500 {
+                UIApplication.mainTabBarController()?.maximizePlayerDetails(episode: nil)
+            } else {
+                self.miniPlayerView.alpha = 1
+                self.maximizedStackView.alpha = 0
+            }
+        })
+    }
+    
+    fileprivate func handlePanChanged(_ gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: self.superview)
+        self.transform = CGAffineTransform(translationX: 0, y: translation.y)
+        
+        self.miniPlayerView.alpha = 1 + (translation.y / 200)
+        self.maximizedStackView.alpha = -translation.y / 200
+    }
+    
+    @objc func handlePan(gesture: UIPanGestureRecognizer) {
+        if gesture.state == .changed {
+            handlePanChanged(gesture)
+        } else if gesture.state == .ended {
+            handlePanEnded(gesture)
+        }
+    }
+    
     @objc func handleTapMaximize() {
-        let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
-        mainTabBarController?.maximizePlayerDetails(episode: nil)
+        UIApplication.mainTabBarController()?.maximizePlayerDetails(episode: nil)
     }
     
     static func initFromNib() -> PlayerDetailsView {
@@ -114,8 +174,7 @@ class PlayerDetailsView: UIView {
     
     
     @IBAction func handleDismiss(_ sender: Any) {
-        let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
-        mainTabBarController?.minimizePlayerDetails()
+        UIApplication.mainTabBarController()?.minimizePlayerDetails()
     }
 
     @IBOutlet weak var playPauseButton: UIButton! {

@@ -20,6 +20,13 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7s-64-7ft">
                     <rect key="frame" x="0.0" y="20" width="375" height="64"/>
                     <subviews>
+                        <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xkh-bE-eRr">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="7nN-12-qoz"/>
+                            </constraints>
+                        </view>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="A5m-L2-iOD">
                             <rect key="frame" x="8" y="8" width="359" height="48"/>
                             <subviews>
@@ -59,8 +66,11 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="Xkh-bE-eRr" firstAttribute="top" secondItem="R7s-64-7ft" secondAttribute="top" id="3KO-qh-B0s"/>
+                        <constraint firstAttribute="trailing" secondItem="Xkh-bE-eRr" secondAttribute="trailing" id="Cvu-jH-Ht5"/>
                         <constraint firstAttribute="trailing" secondItem="A5m-L2-iOD" secondAttribute="trailing" constant="8" id="Gqg-Qw-7W5"/>
                         <constraint firstItem="A5m-L2-iOD" firstAttribute="top" secondItem="R7s-64-7ft" secondAttribute="top" constant="8" id="H8q-9v-eeY"/>
+                        <constraint firstItem="Xkh-bE-eRr" firstAttribute="leading" secondItem="R7s-64-7ft" secondAttribute="leading" id="W8j-sL-9Sv"/>
                         <constraint firstItem="A5m-L2-iOD" firstAttribute="leading" secondItem="R7s-64-7ft" secondAttribute="leading" constant="8" id="XfW-CB-6jA"/>
                         <constraint firstAttribute="bottom" secondItem="A5m-L2-iOD" secondAttribute="bottom" constant="8" id="jra-lY-9IR"/>
                         <constraint firstAttribute="height" constant="64" id="wk9-pp-qMf"/>
