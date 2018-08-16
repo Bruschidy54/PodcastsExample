@@ -50,12 +50,21 @@
                             </label>
                         </subviews>
                     </stackView>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Hz-5R-Jtj">
+                        <rect key="frame" x="44" y="83.5" width="77" height="34.5"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="fk0-gg-TwZ" firstAttribute="leading" secondItem="rAL-jn-mjh" secondAttribute="trailing" constant="16" id="FBl-Pk-QrD"/>
+                    <constraint firstItem="8Hz-5R-Jtj" firstAttribute="centerX" secondItem="rAL-jn-mjh" secondAttribute="centerX" id="L5v-1K-0ko"/>
                     <constraint firstItem="rAL-jn-mjh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="16" id="PKg-vg-UFW"/>
                     <constraint firstItem="rAL-jn-mjh" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="PPH-wm-RNF"/>
                     <constraint firstAttribute="trailingMargin" secondItem="fk0-gg-TwZ" secondAttribute="trailing" constant="8" id="RDF-aG-DXW"/>
+                    <constraint firstItem="8Hz-5R-Jtj" firstAttribute="centerY" secondItem="rAL-jn-mjh" secondAttribute="centerY" id="YFX-Cs-QMm"/>
                     <constraint firstItem="fk0-gg-TwZ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="dau-na-aI5"/>
                 </constraints>
             </tableViewCellContentView>
@@ -63,6 +72,7 @@
             <connections>
                 <outlet property="descriptionLabel" destination="gB3-CC-5WG" id="vNc-Ge-br1"/>
                 <outlet property="episodeImageView" destination="rAL-jn-mjh" id="GNa-Sv-Wz1"/>
+                <outlet property="progressLabel" destination="8Hz-5R-Jtj" id="M94-pr-zel"/>
                 <outlet property="pubDateLabel" destination="HWy-3t-JGV" id="eCs-63-Erk"/>
                 <outlet property="titleLabel" destination="KUY-Od-xxS" id="STU-kj-i1t"/>
             </connections>

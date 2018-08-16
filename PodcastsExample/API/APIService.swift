@@ -10,11 +10,45 @@ import Foundation
 import Alamofire
 import FeedKit
 
+extension Notification.Name {
+    static let downloadProgress = NSNotification.Name("downloadProgress")
+    static let downloadComplete = NSNotification.Name("downloadComplete")
+}
+
 class APIService {
+    
+    typealias EpisodeDownloadCompleteTuple = (fileUrl: String, episodeTitle: String)
     
     static let shared = APIService()
     
     let baseItunesSearchUrl = "https://itunes.apple.com/search"
+    
+    func downloadEpisode(episode: Episode) {
+        print("Downloading episode using Alamofire at stream url:", episode.streamUrl)
+        
+        let downloadRequest = DownloadRequest.suggestedDownloadDestination()
+        
+        Alamofire.download(episode.streamUrl, to: downloadRequest).downloadProgress { (progress) in
+            NotificationCenter.default.post(name: .downloadProgress, object: nil, userInfo: ["title": episode.title, "progress" : progress.fractionCompleted])
+            
+            }.response { (resp) in
+                
+                
+                let episodeDownloadComplete = EpisodeDownloadCompleteTuple(resp.destinationURL?.absoluteString ?? "", episode.title)
+                NotificationCenter.default.post(name: .downloadComplete, object: episodeDownloadComplete, userInfo: nil)
+                
+                var downloadedEpisodes = UserDefaults.standard.downloadedEpisodes()
+                guard let index = downloadedEpisodes.index(where: { $0.title == episode.title && $0.author == episode.author }) else { return }
+                
+                downloadedEpisodes[index].fileUrl = resp.destinationURL?.absoluteString ?? ""
+                do {
+                let data = try JSONEncoder().encode(downloadedEpisodes)
+                UserDefaults.standard.set(data, forKey: UserDefaults.downloadedEpisodesKey)
+                } catch let err {
+                    print("Failed to encode downloaded episodes with file url update:", err)
+                }
+        }
+    }
     
     func fetchEpisodes(feedUrl: String, completionHandler: @escaping ([Episode]) -> ()) {
         guard let url = URL(string: feedUrl.toSecureHTTPS()) else { return }

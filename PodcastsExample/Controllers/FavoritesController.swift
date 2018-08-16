@@ -25,8 +25,10 @@ class FavoritesController: UICollectionViewController, UICollectionViewDelegateF
         
         podcasts = UserDefaults.standard.savedPodcasts()
         collectionView?.reloadData()
-        UIApplication.mainTabBarController()?.viewControllers?[1].tabBarItem.badgeValue = nil
+        UIApplication.mainTabBarController()?.viewControllers?[0].tabBarItem.badgeValue = nil
     }
+    
+    //MARK:- Setup Functions
     
     private func setupCollectionView() {
     collectionView?.backgroundColor = .white
